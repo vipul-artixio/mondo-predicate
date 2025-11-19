@@ -1,0 +1,29 @@
+services:
+  mondo-predicate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mondo-predicate
+    environment:
+      - PG_HOST=${PG_HOST:-host.docker.internal}
+      - PG_PORT=${PG_PORT:-5432}
+      - PG_DATABASE=${PG_DATABASE:-quriousri_db}
+      - PG_USER=${PG_USER:-postgres}
+      - PG_PASSWORD=${PG_PASSWORD:-postgres}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LLM_CACHE_DIR=${LLM_CACHE_DIR:-/app/llm_join/cache}
+      - LLM_TOP_K=${LLM_TOP_K:-5}
+      - LLM_THRESHOLD=${LLM_THRESHOLD:-0.75}
+      - LLM_MIN_CONFIDENCE=${LLM_MIN_CONFIDENCE:-0.6}
+      - OPENAI_THROTTLE_EVERY=${OPENAI_THROTTLE_EVERY:-10}
+      - OPENAI_THROTTLE_SLEEP=${OPENAI_THROTTLE_SLEEP:-2.0}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-OPENAI_API_KEY}
+      - OPEN_AI_MODEL=${OPEN_AI_MODEL:-gpt-4o-mini}
+      - OPENAI_EMBEDDING_MODEL_NAME=${OPENAI_EMBEDDING_MODEL_NAME:-text-embedding-3-small}
+    networks:
+      - quriousri-network
+    restart: "no"
+
+networks:
+  quriousri-network:
+    driver: bridge
