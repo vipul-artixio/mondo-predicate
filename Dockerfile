@@ -4,24 +4,22 @@ WORKDIR /app
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cpu"
+    PIP_DISABLE_PIP_VERSION_CHECK=1
  
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     gcc \
     g++ \
     build-essential \
-    libgomp1 \
     postgresql-client \
     curl \
     && rm -rf /var/lib/apt/lists/*
  
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-
-RUN python -c "import groq; print('✓ groq installed')" || echo "⚠ groq not installed" 
+# Copy application code
 COPY . .
  
 
