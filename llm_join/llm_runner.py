@@ -172,7 +172,7 @@ def main():
                     db_connection=connection,
                     api_key=Config.OPEN_API_KEY,
                     model_name=Config.OPENAI_EMBEDDING_MODEL_NAME,
-                    batch_size=100,
+                    batch_size=1000,
                 )
                 processed, errors = generator.generate_all_embeddings()
                 logger.info(f"✓ Generated {processed} embeddings ({errors} errors)")

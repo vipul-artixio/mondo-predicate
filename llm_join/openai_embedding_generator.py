@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class OpenAIEmbeddingGenerator:
     """
     Generates OpenAI embeddings for MONDO diseases and synonyms using regular API.
-    Processes embeddings in configurable batch sizes (default: 100 per API call).
+    Processes embeddings in configurable batch sizes (default: 1000 per API call).
     """
     
     def __init__(
@@ -30,7 +30,7 @@ class OpenAIEmbeddingGenerator:
         db_connection,
         api_key: Optional[str] = None,
         model_name: str = "text-embedding-3-small",
-        batch_size: int = 100,
+        batch_size: int = 1000,
         max_retries: int = 3,
         retry_delay: float = 2.0,
     ):
